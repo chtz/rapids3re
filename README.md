@@ -1,6 +1,8 @@
 # rapids3re samples
 
-Pre condition: AWS IAM user with S3 ~full access
+Share files via s3 short-living presigned download URLs.
+
+Pre condition: AWS IAM user with S3 ~full access.
 
 ## Create bucket
 
