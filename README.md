@@ -8,6 +8,12 @@ Download [rapids3re-0.0.1.jar](https://s3-eu-west-1.amazonaws.com/www.opensource
 
 Pre condition: AWS IAM user with S3 ~full access.
 
+## Pre condition (temp work around)
+
+```
+export AWS_REGION="eu-west-1"
+```
+
 ## Create bucket
 
 ```
