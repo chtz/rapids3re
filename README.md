@@ -1,3 +1,5 @@
+> THIS CODE IS BROKEN ~SINCE LAST AWS SDK VERSION UPDATE :-(
+
 # rapids3re samples
 
 Share files via s3 short-living presigned download URLs.
