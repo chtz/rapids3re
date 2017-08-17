@@ -29,5 +29,5 @@ curl $PRESIGNED_URL
 ## Delete bucket
 
 ```
-java -jar target/rapids3re-0.0.1.jar --command deleteBucket --bucket $BUCKET --expirationInDays 1 --region $REGION --accessKey $ACCESS_KEY_ID --secretKey $SECRECT_KEY
+java -jar target/rapids3re-0.0.1.jar --command deleteBucket --bucket $BUCKET --region $REGION --accessKey $ACCESS_KEY_ID --secretKey $SECRECT_KEY
 ```
