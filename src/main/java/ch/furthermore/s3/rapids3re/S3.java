@@ -12,11 +12,6 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import com.amazonaws.HttpMethod;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -34,23 +29,14 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import com.amazonaws.services.s3.model.SetBucketLifecycleConfigurationRequest;
 
-@Service
 public class S3 {
-	@Value(value = "${region:eu-west-1}")
-	private String region;
-
-	@Value(value = "${accessKey}")
-	private String accessKey;
-
-	@Value(value = "${secretKey}")
-	private String secretKey;
-
 	private AmazonS3 s3;
 
-	@PostConstruct
-	public void init() {
+	public S3(String region, String accessKey, String secretKey) {
 		s3 = AmazonS3ClientBuilder.standard()
+				.withRegion(region)
 				.withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(accessKey, secretKey)))
+				.withPathStyleAccessEnabled(true)
 				.build();
 	}
 
@@ -75,13 +61,13 @@ public class S3 {
 			generatePresignedUrlRequest.setMethod(HttpMethod.GET);
 			generatePresignedUrlRequest.setExpiration(expiration.getTime());
 
-			return s3.generatePresignedUrl(generatePresignedUrlRequest);
+			return s3.generatePresignedUrl(generatePresignedUrlRequest); //FIXME ;-(
 		} finally {
 			in.close();
 		}
 	}
 
-	public void createBucket(String bucketName, int expirationInDays) {
+	public void createBucket(String bucketName, String region, int expirationInDays) {
 		s3.createBucket(new CreateBucketRequest(bucketName, region));
 		
 		BucketLifecycleConfiguration.Rule globalExpNDaysRule = new BucketLifecycleConfiguration.Rule()

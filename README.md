@@ -1,5 +1,3 @@
-> THIS CODE IS BROKEN ~SINCE LAST AWS SDK VERSION UPDATE :-(
-
 # rapids3re samples
 
 Share files via s3 short-living presigned download URLs.
@@ -10,32 +8,26 @@ Download [rapids3re-0.0.1.jar](https://s3-eu-west-1.amazonaws.com/www.opensource
 
 Pre condition: AWS IAM user with S3 ~full access.
 
-## Pre condition (temp work around)
-
-```
-export AWS_REGION="eu-west-1"
-```
-
 ## Create bucket
 
 ```
-java -jar target/rapids3re-0.0.1.jar --command=createBucket --bucket=chtztest20170310e --expirationInDays=1 --accessKey=$ACCESS_KEY_ID --secretKey=$SECRECT_KEY
+java -jar target/rapids3re-0.0.1.jar --command createBucket --bucket $BUCKET --expirationInDays 1 --region $REGION --accessKey $ACCESS_KEY_ID --secretKey $SECRECT_KEY
 ```
 
 ## Upload file
 
 ```
-PRESIGNED_URL=$(java -jar target/rapids3re-0.0.1.jar --command=putObject --file=target/rapids3re-0.0.1.jar --bucket=chtztest20170310e --expirationDurationMinutes=10 --accessKey=$ACCESS_KEY_ID --secretKey=$SECRECT_KEY)
+PRESIGNED_URL=$(java -jar target/rapids3re-0.0.1.jar --command putObject --file $FILE --bucket $BUCKET --expirationDurationMinutes 60 --region $REGION --accessKey $ACCESS_KEY_ID --secretKey $SECRECT_KEY)
 ```
 
 ## Download file
 
 ```
-wget "$PRESIGNED_URL" -O downloaded.jar
+curl $PRESIGNED_URL
 ```
 
 ## Delete bucket
 
 ```
-java -jar target/rapids3re-0.0.1.jar --command=deleteBucket --bucket=chtztest20170310e --accessKey=$ACCESS_KEY_ID --secretKey=$SECRECT_KEY
+java -jar target/rapids3re-0.0.1.jar --command deleteBucket --bucket $BUCKET --expirationInDays 1 --region $REGION --accessKey $ACCESS_KEY_ID --secretKey $SECRECT_KEY
 ```

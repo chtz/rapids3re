@@ -4,3 +4,4 @@ gitignored
 .settings
 target
 privatTest
+dependency-reduced-pom.xml
